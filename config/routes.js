@@ -42,6 +42,7 @@ module.exports.routes = {
         action: 'index'
     }
 
+
     /***************************************************************************
      *                                                                          *
      * Custom routes here...                                                    *
