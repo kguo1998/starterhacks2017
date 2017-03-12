@@ -3,9 +3,12 @@
 <html lang="en">
 <head>
 <script>
-  function redirectChat() (
-
-  )
+  function chatPage() {
+    io.socket.post('home-controller/chat',
+      function(resData, jwres) {
+        console.log(resData);        
+      });
+  }
 </script>
 <script src='../js/home.js'></script>
 <style type='text/css'>
@@ -36,6 +39,11 @@
     margin-top:-60px;
     width: 100%;
   }
+
+  .center-text {
+    color:white;
+    text-align:center;
+  }
   
 </style>
   <title>StarterHacks</title>
@@ -64,28 +72,10 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Chat</a></li>
-        <li class="dropdown">
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
+        <li><a href="chat">Chat</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li>
+      </ul>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -105,14 +95,16 @@
     <p class='banner-text' style='color:#B1B1B1;margin-top:-10px;'>Everything you say on ChatBot is confidential, judge free and your identity is anonymous.</p>
   </div>
 <div style='text-align: center;margin:10px;'>
-<button class='btn btn-primary btn-lg' style='text-align:center;' onclick="">
+<a href="/chat">
+<button class='btn btn-primary btn-lg' style='text-align:center;' onclick="chatPage()">
   Start the Conversation
 </button>
+</a>
 </div>
 </div>
 </div>
 <div class='second'>
-  <div class='well' style='background-color:#9AA4B0;border:3px solid white;margin:70px;margin-top:0px;'>
+  <div class='well' style='background-color:#4A2F39;border:none;margin-top:0px;'>
     <div class='page-header'>
       <h1 class='banner-text'>
       Find your inner peace today.
@@ -120,29 +112,29 @@
     </div>
     <div class="row">
       <div class="col-sm-6 col-md-4">
-        <div class="thumbnail" style='background-color:#9AA4B0;border:none;'>
-          <img style='width:150px;height:150px' src='../images/question-mark.png'/>
+        <div class="thumbnail" style='background-color:#4A2F39;border:none;'>
+          <img style='width:150px;height:150px' src='../images/question-mark2.png'/>
             <div class="caption">
-              <h3 style='text-align:center;'>Have questions?</h3>
-              <p style='text-align:center;'>ChatBot can provide you with the answers. Jamie will try to assist you with an inquiries you have.</p>
+              <h3 class='center-text'>Have questions?</h3>
+              <p class='center-text'>ChatBot can provide you with the answers. Jamie will try to assist you with an inquiries you have.</p>
             </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-4">
-          <div class="thumbnail" style='background-color:#9AA4B0;border:none;'>
-          <img style='width:150px;height:150px' src='../images/information.png'/>
+          <div class="thumbnail" style='background-color:#4A2F39;border:none;'>
+          <img style='width:150px;height:150px' src='../images/information2.png'/>
             <div class="caption">
-              <h3 style='text-align:center;'>Want information?</h3>
-              <p style='text-align:center;'>ChatBot provides helpful information and can suggest proffessionals, help-lines and websites.</p>
+              <h3 class='center-text'>Want information?</h3>
+              <p class='center-text'>ChatBot provides helpful information and can suggest proffessionals, help-lines and websites.</p>
             </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-4">
-          <div class="thumbnail" style='background-color:#9AA4B0;border:none;'>
-          <img style='width:150px;height:150px' src='../images/message.png'/>
-            <div class="caption">
-              <h3 style='text-align:center;'>Join the conversation.</h3>
-              <p style='text-align:center;'>Start interacting with Jamie and find the answers you need. Joining the conversation is accessible and as easy as clicking a button</p>
+          <div class="thumbnail" style='background-color:#4A2F39;border:none;'>
+          <img style='width:170px;height:170px' src='../images/message2.1.png'/>
+            <div class="caption" style='margin-top:-20px;'>
+              <h3 class='center-text'>Join the conversation.</h3>
+              <p class='center-text'>Start interacting with Jamie and find the answers you need. Joining the conversation is accessible and as easy as clicking a button.</p>
             </div>
           </div>
         </div>
@@ -151,35 +143,35 @@
   </div>
 
   <h2 class='banner-text' style='text-align: center;color:white;'>
-    Here are some help lines for you to try out
+    Here are some helpful links:
   </h2>
-  <div>
+  <div class='well' style='margin-left:200px;margin-right:200px;border:none;background-color:#4A2F39'>
   <ul>
     <li><!--first link-->
-      <a>
+      <a href='https://www.kidshelpphone.ca/'>
         <h4>
-        Kids Help Phone: //////
+          Kids Help Phone
         </h4>
       </a>
     </li>
     <li><!--secondlink-->
-      <a>
+      <a href='http://suicideprevention.ca/'>
         <h4>
-        Canadian Association for Suicide Prevention: //////
+          Canadian Association for Suicide Prevention
         </h4>
       </a>
     </li>
    <li><!--third link-->
-      <a>
+      <a href='https://suicidepreventionlifeline.org/'>
         <h4>
-        National Suicide Provention Hotline: //////
+          National Suicide Provention Hotline
         </h4>
       </a>
     </li>
     <li><!--fourth link-->
-      <a>
+      <a href='http://www.crisistextline.org/'>
       <h4>
-        Crisis Text Line: /////
+          Crisis Text Line
       </h4>
       </a>
     </li>

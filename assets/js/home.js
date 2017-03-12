@@ -3,3 +3,4 @@ $(".scrollTop").click(function() {
         scrollTop: $(".second").offset().top},
         'slow');
 });
+

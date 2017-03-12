@@ -40,7 +40,16 @@ module.exports.routes = {
     '/': {
         controller: 'home',
         action: 'index'
-    }
+    },
+
+    '/chat': {
+        controller: 'chat',
+        action: 'chat'
+    },
+
+    'POST /home-controller/chat': 'ChatController.chat',
+
+
 
 
     /***************************************************************************
