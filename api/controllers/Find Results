@@ -1,0 +1,511 @@
+Searching 276 files for "io.socket"
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/containers/game-container.jsx:
+   73      const { dispatch } = this.props;
+   74      var connectGame = function(sid) {
+   75:       io.socket.post('/games/wisecrack/' + sid + '/connect',
+   76          function gotResponse(resData, jwres) {
+   77            if (jwres.statusCode === 403) { // not logged in
+   ..
+   87      };
+   88  
+   89:     io.socket.on('updateState', function gotNewState (data) {
+   90        dispatch(updateState(data));
+   91      });
+   ..
+   93      let sid = this.props.sid;
+   94  
+   95:     io.socket.on('connect', function socketConnected() {
+   96        console.log('Connected to socket/server');
+   97        connectGame(sid);
+   98      });
+   99  
+  100:     io.socket.on('disconnect', function socketDisconnected() {
+  101        console.log('Lost connection to socket/server');
+  102      });
+  ...
+  104      connectGame(sid);
+  105  
+  106:     io.socket.on('error', function gotNewError (error) {
+  107        dispatch(updateError(error));
+  108      });
+  ...
+  117      mixpanel.people.union('games played', 'wisecrack');
+  118  
+  119:     io.socket.get('/games/wisecrack/' + this.props.sid + '/start');
+  120    }
+  121  
+  122    setLobbyStage() {
+  123:     io.socket.get('/games/wisecrack/' + this.props.sid + '/restart');
+  124    }
+  125  
+  126    setPromptStartStage() {
+  127:     io.socket.get('/games/wisecrack/' + this.props.sid + '/set-prompt-start-stage');
+  128    }
+  129  
+  130    setAnswerStage() {
+  131:     io.socket.get('/games/wisecrack/' + this.props.sid + '/set-answer-stage');
+  132    }
+  133  
+  134    setPromptEndStage() {
+  135:     io.socket.get('/games/wisecrack/' + this.props.sid + '/set-prompt-end-stage');
+  136    }
+  137  
+  138    skipPrompt() {
+  139:     io.socket.get('/games/wisecrack/' + this.props.sid + '/skipPrompt');
+  140    }
+  141  
+  ...
+  201  
+  202    getEmail() {
+  203:     io.socket.get('/auth/get-email/', 
+  204        function(resData, jwres) {
+  205          this.setState({
+  ...
+  211  
+  212    getGamelisting() {
+  213:     io.socket.get('/games/get-gamelisting/', {name: 'Wisecrack'},
+  214        function gotResponse(resData, jwres) {
+  215          if (Object.keys(resData).length !== 0 && resData.constructor === Object) {
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/containers/riddlesnake-game-container.jsx:
+   35      const { dispatch } = this.props;
+   36      var connectGame = function(sid) {
+   37:       io.socket.post('/games/riddlesnake/' + sid + '/connect', {isSpectator: this.state.isSpectator},
+   38          function gotResponse(resData, jwres) {
+   39            if (jwres.statusCode === 403) { // not a player or spectator
+   ..
+   47      }.bind(this);
+   48  
+   49:     io.socket.on('updateState', function gotNewState (data) {
+   50        dispatch(updateState(data));
+   51      });
+   ..
+   56      }
+   57  
+   58:     io.socket.on('connect', function socketConnected() {
+   59        console.log('Connected to socket/server');
+   60        connectGame(sid);
+   61      });
+   62  
+   63:     io.socket.on('disconnect', function socketDisconnected() {
+   64        console.log('Lost connection to socket/server');
+   65      });
+   ..
+   67      connectGame(sid);
+   68  
+   69:     io.socket.on('error', function gotNewError (error) {
+   70        dispatch(updateError(error));
+   71      });
+   ..
+   73  
+   74    gameStart() {
+   75:     io.socket.get('/games/riddlesnake/' + this.props.sid + '/start');
+   76    }
+   77  
+   78    restartGame() {
+   79:     io.socket.get('/games/riddlesnake/' + this.props.sid + '/restart');
+   80    }
+   81  
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/containers/slyfox-game-container.jsx:
+   41      const { dispatch } = this.props;
+   42      var connectGame = function(sid) {
+   43:       io.socket.post('/games/slyfox/' + sid + '/connect',
+   44          function gotResponse(resData, jwres) {
+   45            if (jwres.statusCode === 403) { // not logged in
+   ..
+   53      };
+   54  
+   55:     io.socket.on('updateState', function gotNewState (data) {
+   56        dispatch(updateState(data));
+   57      });
+   ..
+   59      let sid = this.props.sid;
+   60  
+   61:     io.socket.on('connect', function socketConnected() {
+   62        console.log('Connected to socket/server');
+   63        connectGame(sid);
+   64      });
+   65  
+   66:     io.socket.on('disconnect', function socketDisconnected() {
+   67        console.log('Lost connection to socket/server');
+   68      });
+   ..
+   70      connectGame(sid);
+   71  
+   72:     io.socket.on('error', function gotNewError (error) {
+   73        dispatch(updateError(error));
+   74      });
+   ..
+   76  
+   77    gameStart() {
+   78:     io.socket.get('/games/slyfox/' + this.props.sid + '/start');
+   79    }
+   80  
+   81    startFlipStage() {
+   82:     io.socket.get('/games/slyfox/' + this.props.sid + '/start-flip-stage');
+   83    }
+   84  
+   85    startOutcomeStage() {
+   86:     io.socket.get('/games/slyfox/' + this.props.sid + '/start-outcome-stage');
+   87    }
+   88  
+   89    startNextHotseat() {
+   90:     io.socket.get('/games/slyfox/' + this.props.sid + '/start-next-hotseat');
+   91    }
+   92  
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/game-end-stage.jsx:
+   39      token.gameListingPrice = gameListing.price;
+   40  
+   41:     io.socket.post('/save-stripe-token', token, function(data, res) {
+   42        this.props.getEmail();
+   43      }.bind(this));
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/gamelist.jsx:
+   56  
+   57    getGames() {
+   58:     io.socket.get('/games/list/',
+   59        function gotResponse(resData, jwres) {
+   60          if (Object.keys(resData).length !== 0 && resData.constructor === Object) {
+   ..
+   75  
+   76    getGifts() {
+   77:     io.socket.get('/games/gifts/',
+   78        function gotResponse(resData, jwres) {
+   79          if (Object.keys(resData).length !== 0 && resData.constructor === Object) {
+   ..
+  100  
+  101    logOut() {
+  102:     io.socket.get('/auth/logout/',
+  103        function gotResponse(resData, jwres) {
+  104          if (jwres.statusCode === 200) {
+  ...
+  118    createGame(name) {
+  119      name = (name || '').toLowerCase();
+  120:     io.socket.get('/games/'+name, function gotResponse(data, response) {
+  121        if (response.statusCode === 200 && data && data.sid) {
+  122          browserHistory.push('/games/'+name.toLowerCase()+'/'+data.sid+'/join');
+  ...
+  137      });
+  138  
+  139:     io.socket.post('/make-purchase', token, function(data, res) {
+  140        if (data === "Purchase Complete") {
+  141          mixpanel.people.track_charge((gameListing.price/100), {'$time': new Date(), 'currency':'USD'});
+  ...
+  161      });
+  162  
+  163:     io.socket.post('/make-gift-purchase', token, function(data, res) {
+  164        if (data === "Purchase Complete") {
+  165          mixpanel.people.track_charge((gameListing.price/100), {'$time': new Date(), 'currency':'USD'});
+  ...
+  172    claimGift(e) {
+  173      e.preventDefault();
+  174:     io.socket.post('/claim-gift-purchase', { purchaseId: this.state.giftClaimCode }, function(data, res) {
+  175        if (res.error) {
+  176          browserHistory.push('/games');
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/gift-sign-in-modal.jsx:
+   80      event.preventDefault();
+   81      let email = this.state.email.trim().toLowerCase();
+   82:     io.socket.get('/auth/check-email', {
+   83        email: email,
+   84      }, function (emailCheckRes, jwres) {
+   85:       io.socket.post('/auth/login', {
+   86          email: email,
+   87          password: this.state.password,
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/gift-sign-up-modal.jsx:
+   99      let email = this.state.email.trim().toLowerCase();
+  100      let self = this;
+  101:     io.socket.post(
+  102        '/auth/register',
+  103        {
+  ...
+  110            mixpanel.alias(email);
+  111  
+  112:           io.socket.post(
+  113              '/auth/login',
+  114              {
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/homepage.jsx:
+   49  
+   50    getIsLoggedIn() {
+   51:     io.socket.get('/is-authed/',
+   52        function gotResponse(resData, jwres) {
+   53          if (jwres.statusCode === 200) {
+   ..
+   61  
+   62    logOut() {
+   63:     io.socket.get('/auth/logout/',
+   64        function gotResponse(resData, jwres) {
+   65          if (jwres.statusCode === 200) {
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/join-game.jsx:
+   63      });
+   64  
+   65:     io.socket.get('/games/' + sid + '/getGame',
+   66        function (getGameData, getGameRes) {
+   67          if (getGameRes.statusCode !== 200) {
+   ..
+   72          }
+   73  
+   74:         io.socket.post('/games/' + getGameData.gameType + '/' + sid + '/join', {
+   75              nickname: nickname,
+   76              playerId: localStorage.playerId,
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/join-lobby-modal.jsx:
+   70      });
+   71  
+   72:     io.socket.get('/games/' + sid + '/getGame',
+   73        function (getGameData, getGameRes) {
+   74          if (getGameRes.statusCode !== 200) {
+   ..
+   78            return;
+   79          }
+   80:         io.socket.post('/games/' + getGameData.gameType + '/' + sid + '/join', {
+   81              nickname: nickname,
+   82              playerId: localStorage.playerId,
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/join-lobby.jsx:
+   70      });
+   71  
+   72:     io.socket.get('/games/' + sid + '/getGame',
+   73        function (getGameData, getGameRes) {
+   74          if (getGameRes.statusCode !== 200) {
+   ..
+   78            return;
+   79          }
+   80:         io.socket.post('/games/' + getGameData.gameType + '/' + sid + '/join', {
+   81              nickname: nickname,
+   82              playerId: localStorage.playerId,
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/judge-answer-stage.jsx:
+   35    collectResponses() {
+   36      let sid = this.props.gameId;
+   37:     io.socket.post('/games/wisecrack/' + sid + '/collect-responses', function(response) {
+   38        if (response.statusCode !== 200) {
+   39          console.error(response.error);
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/judge-choose-stage.jsx:
+   35        this.setState({isSubmitDisabled: false});
+   36      }.bind(this), 3000);
+   37:     io.socket.post('/games/wisecrack/'+ sid + '/choose',
+   38      { choice: selectedPlayerId }, 
+   39        function (resData, jwres) {
+   ..
+   47    revealNext() {
+   48      let sid = this.props.gameId;
+   49:     io.socket.post('/games/wisecrack/'+ sid + '/reveal-next-answer', 
+   50        function (resData, jwres) {
+   51          if (jwres.statusCode !== 200) {
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/judge-prompt-start-stage.jsx:
+   61  
+   62        let sid = this.props.gameId;
+   63:       io.socket.post('/games/wisecrack/' + sid + '/setcustomprompt', { prompt: this.state.customPhrase }, function(data, res) {
+   64          this.setState({
+   65            submittingCustom: false,
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/log-admin.jsx:
+   25        this.setState({ log_info: resData });
+   26      }.bind(this);
+   27:     io.socket.get('/admin/log/get-log', { level: logLevel }, callback);
+   28    }
+   29  
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/player-answer-stage.jsx:
+   34  
+   35      let sid = this.props.gameId;
+   36:     io.socket.post('/games/wisecrack/'+ sid + '/respond',
+   37        { response: response },
+   38        function (resData,jwres) {
+   ..
+   72    changeAnswer() {
+   73      let sid = this.props.gameId;
+   74:     io.socket.post('/games/wisecrack/'+ sid + '/changeAnswer',
+   75        function (resData,jwres) {
+   76          if (jwres.statusCode === (403 || 400)) {
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/reset-password-modal.jsx:
+   43    submitReset(event) {
+   44      event.preventDefault();
+   45:     io.socket.post('/auth/reset', {
+   46        password: this.state.password,
+   47      }, function (resData, jwres) {
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/riddlesnake-admin.jsx:
+   18  
+   19    createGame() {
+   20:     io.socket.get('/games/riddlesnake', function gotResponse(data, response) {
+   21        if (response.statusCode === 200 && data && data.sid) {
+   22          browserHistory.push('/games/riddlesnake/'+data.sid+'/join');
+   ..
+   26  
+   27    endGame() {
+   28:     io.socket.get('/games/riddlesnake/LYNX/end', function gotResponse(data, response) {
+   29      });
+   30    }
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/riddlesnake-join-game.jsx:
+   83      });
+   84  
+   85:     io.socket.get('/games/' + sid + '/getGame',
+   86        function (getGameData, getGameRes) {
+   87          if (getGameRes.statusCode !== 200) {
+   ..
+   92          }
+   93  
+   94:         io.socket.post('/games/' + getGameData.gameType + '/' + sid + '/join', {
+   95              nickname: nickname,
+   96              playerId: localStorage.playerId,
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/riddlesnake-riddle.jsx:
+   49      }
+   50  
+   51:     io.socket.get('/games/riddlesnake/' + this.props.sid + '/get-riddle',
+   52        function gotAnswer(resData, jwres) {
+   53          if (jwres.statusCode === 200) {
+   ..
+   80  
+   81      let sid = this.props.sid;
+   82:     io.socket.post('/games/riddlesnake/'+ sid + '/submit-answer',
+   83        { answer: answer },
+   84        function gotAnswer(resData, jwres) {
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/sign-in-modal.jsx:
+  117    submitReset(event) {
+  118      event.preventDefault();
+  119:     io.socket.post('/auth/reset', {
+  120        email: this.state.resetEmail.trim().toLowerCase(),
+  121      }, function (resData, jwres) {
+  ...
+  129      event.preventDefault();
+  130      let email = this.state.email.trim().toLowerCase();
+  131:     io.socket.get('/auth/check-email', {
+  132        email: email,
+  133      }, function (emailCheckRes, jwres) {
+  134:       io.socket.post('/auth/login', {
+  135          email: email,
+  136          password: this.state.password,
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/sign-up-modal.jsx:
+   98      let email = this.state.email.trim().toLowerCase();
+   99      let self = this;
+  100:     io.socket.post(
+  101        '/auth/register',
+  102        {
+  ...
+  110            mixpanel.people.set_once({ "$email": email });
+  111            
+  112:           io.socket.post(
+  113              '/auth/login',
+  114              {
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/slyfox-admin.jsx:
+   26        this.setState({ questions: resData });
+   27      }.bind(this);
+   28:     io.socket.get('/admin/slyfox/getquestions', {}, callback);
+   29    }
+   30  
+   ..
+   35        this.refs.question.value = '';
+   36      }.bind(this);
+   37:     io.socket.post('/admin/slyfox/addquestions', { questions: questionArray }, callback);
+   38    }
+   39  
+   ..
+   44          this.getQuestions();
+   45        }.bind(this);
+   46:       io.socket.delete('/admin/slyfox/deletequestion', { question: question }, callback);
+   47      }
+   48    }
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/slyfox-ask-stage.jsx:
+   51  
+   52      let sid = this.props.gameId;
+   53:     io.socket.post('/games/slyfox/'+ sid + '/submit-question',
+   54        { question: question },
+   55        function(body) {
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/slyfox-hotseat-flip-stage.jsx:
+   24    flip() {
+   25      let sid = this.props.gameId;
+   26:     io.socket.post('/games/slyfox/'+ sid + '/flip');
+   27      this.setState({
+   28        flipped: true,
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/wisecrack-admin.jsx:
+   50        return;
+   51      }
+   52:     io.socket.post('/admin/wisecrack/update-prompt', { oldPrompt: oldPrompt, newPrompt: pText, isCustom: isCustom },
+   53        function() {
+   54          this.stopEdit();
+   ..
+   71  
+   72    getPrompts() {
+   73:     io.socket.get('/admin/wisecrack/get-prompts', {},
+   74        function(resData, jwres) {
+   75          this.setState({ prompts: resData });
+   ..
+   80    addPrompts(event) {
+   81      var promptArray = this.refs.prompt.value.split('\n');
+   82:     io.socket.post('/admin/wisecrack/add-prompts', { prompts: promptArray },
+   83        function(resData, jwres) {
+   84          this.getPrompts();
+   ..
+   91      var response = confirm('deleting prompt: "' + prompt.text + '"');
+   92      if (response == true) {
+   93:       io.socket.delete('/admin/wisecrack/delete-prompt', { prompt: prompt },
+   94          function(resData, jwres) {
+   95            this.stopEdit();
+
+77 matches across 26 files
+
+
+Searching 276 files for "/login"
+
+/Users/kevinguo/gamelynx/gamelynx/api/responses/ok.js:
+    5   * return res.ok();
+    6   * return res.ok(data);
+    7:  * return res.ok(data, 'auth/login');
+    8   *
+    9   * @param  {Object} data
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/gift-sign-in-modal.jsx:
+   83        email: email,
+   84      }, function (emailCheckRes, jwres) {
+   85:       io.socket.post('/auth/login', {
+   86          email: email,
+   87          password: this.state.password,
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/gift-sign-up-modal.jsx:
+  111  
+  112            io.socket.post(
+  113:             '/auth/login',
+  114              {
+  115                email: email,
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/sign-in-modal.jsx:
+  132        email: email,
+  133      }, function (emailCheckRes, jwres) {
+  134:       io.socket.post('/auth/login', {
+  135          email: email,
+  136          password: this.state.password,
+
+/Users/kevinguo/gamelynx/gamelynx/assets/js/react_components/sign-up-modal.jsx:
+  111            
+  112            io.socket.post(
+  113:             '/auth/login',
+  114              {
+  115                email: email,
+
+/Users/kevinguo/gamelynx/gamelynx/test/integration/controllers/UserController.test.js:
+   17      it('should redirect to /games', function (done) {
+   18        request(sails.hooks.http.app)
+   19:         .post('/auth/login')
+   20          .send({email: 'tester@gamelynx.gg', password: 'Example!', type: 'local'})
+   21          .expect(200, done)
+
+6 matches across 6 files

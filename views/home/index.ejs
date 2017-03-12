@@ -4,10 +4,16 @@
 <head>
 <script>
   function chatPage() {
-    io.socket.post('chat-controller/chat',
+    console.log('starting chatPage');
+    io.socket.post('/chat-controller/chat', {},
       function(resData, jwres) {
-        console.log(resData);        
+        jwres.statusCode;
       });
+  }
+</script>
+<script>
+  function hoverDarken() {
+
   }
 </script>
 <script src='../js/home.js'></script>
@@ -43,6 +49,12 @@
   .center-text {
     color:white;
     text-align:center;
+    text-decoration:none;
+  }
+
+  .center-text:hover {
+    color:grey;
+    text-decoration:none;
   }
   
 </style>
@@ -65,14 +77,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" style='color:white;margin-left:20px;margin-bottom: 0px;' href="#"><div style='margin-top:-5px;'><img style='width:40px;height:40px;margin-left:0px;margin-top:-5px;display:inline;padding:4px;' src='../images/chatbot-logo.png'><strong>Warmth</strong></div></a>
+      <a class="navbar-brand" style='color:white;margin-left:20px;margin-bottom: 0px;' href="#"><div style='margin-top:-5px;'><img style='width:40px;height:40px;margin-left:0px;margin-top:-5px;display:inline;padding:4px;' src='../images/chatbot-logo.png'><strong>Jaimie</strong></div></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-        <li><a href="chat">Chat</a></li>
+        <li><a onclick='chatPage()'>Chat</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       </ul>
@@ -86,13 +98,13 @@
 <div class='main-banner'>
   <div class='black-row'>
     <h2 align='center' class='banner-text' style='font-size: 36px'>Have something on your mind today?</h2>
-    <h3 align='center' class='banner-text' style='color:#B1B1B1;'>Come chat with our ChatBot
+    <h3 align='center' class='banner-text' style='color:#B1B1B1;'>Come chat with our ChatBot Jaime
     <a class='scrollTop'>
       <span data class="glyphicon glyphicon-question-sign"></span>
     </a>
     </h3>
-    <p class='banner-text' style='color:#B1B1B1;'>ChatBot is a free 24/7 service for <strong>you</strong>.</p>
-    <p class='banner-text' style='color:#B1B1B1;margin-top:-10px;'>Everything you say on ChatBot is confidential, judge free and your identity is anonymous.</p>
+    <p class='banner-text' style='color:#B1B1B1;'>Jaimie is a free 24/7 chat service for <strong>you</strong>.</p>
+    <p class='banner-text' style='color:#B1B1B1;margin-top:-10px;'>Everything you say on Jaimie is confidential, judge free and your identity is anonymous.</p>
   </div>
 <div style='text-align: center;margin:10px;'>
 <a>
@@ -107,7 +119,7 @@
   <div class='well' style='background-color:#4A2F39;border:none;margin-top:0px;'>
     <div class='page-header'>
       <h1 class='banner-text'>
-      Find your inner peace today.
+      End the stigma.
       </h1>
     </div>
     <div class="row">
@@ -116,7 +128,7 @@
           <img style='width:150px;height:150px' src='../images/question-mark2.png'/>
             <div class="caption">
               <h3 class='center-text'>Have questions?</h3>
-              <p class='center-text'>ChatBot can provide you with the answers. Jamie will try to assist you with an inquiries you have.</p>
+              <p class='center-text'>Jaimie can provide you with the answers. Jamie will try to assist you with an inquiries you have.</p>
             </div>
           </div>
         </div>
@@ -125,7 +137,7 @@
           <img style='width:150px;height:150px' src='../images/information2.png'/>
             <div class="caption">
               <h3 class='center-text'>Want information?</h3>
-              <p class='center-text'>ChatBot provides helpful information and can suggest proffessionals, help-lines and websites.</p>
+              <p class='center-text'>Jaimie provides helpful information and can suggest proffessionals, help-lines and websites.</p>
             </div>
           </div>
         </div>
@@ -134,7 +146,7 @@
           <img style='width:170px;height:170px' src='../images/message2.1.png'/>
             <div class="caption" style='margin-top:-20px;'>
               <h3 class='center-text'>Join the conversation.</h3>
-              <p class='center-text'>Start interacting with Jamie and find the answers you need. Joining the conversation is accessible and as easy as clicking a button.</p>
+              <p class='center-text'>Start interacting with Jaimie and find the answers you need. Joining the conversation is accessible and as easy as clicking a button.</p>
             </div>
           </div>
         </div>
@@ -149,28 +161,28 @@
   <ul>
     <li><!--first link-->
       <a href='https://www.kidshelpphone.ca/'>
-        <h4>
+        <h4 class='center-text'>
           Kids Help Phone
         </h4>
       </a>
     </li>
     <li><!--secondlink-->
       <a href='http://suicideprevention.ca/'>
-        <h4>
+        <h4 class='center-text'>
           Canadian Association for Suicide Prevention
         </h4>
       </a>
     </li>
    <li><!--third link-->
       <a href='https://suicidepreventionlifeline.org/'>
-        <h4>
+        <h4 class='center-text'>
           National Suicide Provention Hotline
         </h4>
       </a>
     </li>
     <li><!--fourth link-->
       <a href='http://www.crisistextline.org/'>
-      <h4>
+      <h4 class='center-text'>
           Crisis Text Line
       </h4>
       </a>

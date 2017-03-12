@@ -8,8 +8,9 @@
 module.exports = {
 
    chat: function(req, res) {
+    console.log("starting chat");
     sails.log.debug('Chatcontroller');
-    res.view('./chat.html');
+    return res.view('/views/home/chat.ejs');
    }
 
 };
