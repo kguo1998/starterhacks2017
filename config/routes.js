@@ -47,7 +47,7 @@ module.exports.routes = {
         action: 'chat'
     },
 
-    'POST /home-controller/chat': 'ChatController.chat',
+    'POST /chat-controller/chat': 'ChatController.chat',
 
 
 

@@ -4,7 +4,7 @@
 <head>
 <script>
   function chatPage() {
-    io.socket.post('home-controller/chat',
+    io.socket.post('chat-controller/chat',
       function(resData, jwres) {
         console.log(resData);        
       });
@@ -95,7 +95,7 @@
     <p class='banner-text' style='color:#B1B1B1;margin-top:-10px;'>Everything you say on ChatBot is confidential, judge free and your identity is anonymous.</p>
   </div>
 <div style='text-align: center;margin:10px;'>
-<a href="/chat">
+<a>
 <button class='btn btn-primary btn-lg' style='text-align:center;' onclick="chatPage()">
   Start the Conversation
 </button>
